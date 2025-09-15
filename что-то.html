@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Резюме</title>
+    <link rel="icon" href="/static/Favicon.png" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      header {
+        background-color: #111827;
+        backdrop-filter: none;
+        z-index: 50;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(to right, #0f172a, #1e293b);
+        color: #f1f5f9;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+      }
+      body.loaded {
+        opacity: 1;
+      }
+
+      .background-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+      }
+      a:hover {
+        transition: all 0.2s ease-in-out;
+      }
+      .progress-bar {
+        height: 6px;
+        background-color: #1e293b;
+        border-radius: 999px;
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        background-color: #4ade80;
+        width: 0%;
+        transition: width 1s ease-in-out;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-gray-100">
+      <canvas class="background-canvas" id="bgCanvas"></canvas>
+
+    <header class="bg-gray-800 shadow-md sticky top-0 z-50">
+      <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="/" class="text-xl font-bold text-green-400 flex items-center gap-2 hover:text-green-300 transition-colors">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
+            ></path>
+          </svg>
+          Пумбыч
+        </a>
+        <nav class="space-x-4 hidden md:flex">
+          <a href="/" class="text-green-400 font-medium">Резюме</a>
+          <a href="/portfolio" class="text-gray-300 hover:text-green-400">Портфолио</a>
+          <a href="/preparation" class="text-gray-300 hover:text-green-400">Подготовка</a>
+          <a href="/knowledge-base" class="text-gray-300 hover:text-green-400">База знаний</a>
+        </nav>
+      </div>
+    </header>
+
+    <main
+      class="max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-10 relative z-10"
+    >
+      <!-- Левая колонка -->
+      <div class="md:col-span-1 flex flex-col space-y-6">
+        <div class="grid grid-cols-1 gap-4">
+          <div
+            class="w-full h-40 rounded-lg overflow-hidden border-2 border-green-500 shadow-lg transform hover:scale-105 transition duration-300 cursor-pointer"
+            onclick="openModal('/static/photo1.png')"
+          >
+            <img
+              src="/static/photo1.png"
+              alt="Фото 1"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        </div>
+        <section>
+          <h4 class="text-xl font-semibold mb-3 text-gray-200">Опыт</h4>
+          <div class="border-l-2 border-green-500 pl-4 mb-4">
+            <h5 class="font-semibold text-gray-200">
+              Backend-разработка
+            </h5>
+            <p class="text-gray-400 text-sm">2023 — настоящее время</p>
+            <ul class="text-gray-300 mt-1 list-disc ml-5 space-y-1">
+              <li>REST API на Golang, Gin, PostgreSQL</li>
+              <li>Работа с JSON для получения данных о погоде</li>
+              <li>Telegram-бот для составления тренировок</li>
+            </ul>
+          </div>
+        </section>
+        <section>
+          <h4 class="text-xl font-semibold mb-3 text-gray-200">Образование</h4>
+          <div class="border-l-2 border-green-500 pl-4">
+            <h5 class="font-semibold text-gray-200">СГУВТ</h5>
+            <p class="text-gray-400 text-sm">2022 — 2026</p>
+            <p class="text-gray-300 mt-1">
+              Информационные системы и технологии
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Правая колонка -->
+      <div class="md:col-span-2 space-y-10">
+        <div>
+          <h2 class="text-3xl font-bold mb-3 text-white">Обо мне</h2>
+          <p class="mb-4 text-gray-300">
+            Я серьёзно настроен развиваться в сфере backend-разработки и ищу
+            возможность присоединиться к сильной команде, где смогу расти,
+            учиться у лучших и приносить реальную пользу проектам.
+          </p>
+
+          <!-- Ссылка на PDF -->
+          <div class="mt-4">
+            <a
+              href="/static/resume.pdf"
+              target="_blank"
+              class="inline-block bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-md transition duration-200"
+            >
+              Посмотреть / Скачать PDF-резюме
+            </a>
+          </div>
+        </div>
+
+        <section>
+          <h4 class="text-xl font-semibold mb-4 text-gray-200">Стек</h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-gray-300">Go / Golang</span>
+                  <span class="text-green-400">70%</span>
+                </div>
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  aria-valuenow="70"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  <div
+                    class="progress-fill"
+                    style="width: 70%"
+                    data-width="70%"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-gray-300">Gin</span>
+                  <span class="text-green-400">70%</span>
+                </div>
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  aria-valuenow="70"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  <div
+                    class="progress-fill"
+                    style="width: 70%"
+                    data-width="70%"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-gray-300">SQL</span>
+                  <span class="text-green-400">65%</span>
+                </div>
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  aria-valuenow="65"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  <div
+                    class="progress-fill"
+                    style="width: 65%"
+                    data-width="65%"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-gray-300">Git</span>
+                  <span class="text-green-400">90%</span>
+                </div>
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  aria-valuenow="90"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  <div
+                    class="progress-fill"
+                    style="width: 90%"
+                    data-width="90%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-gray-300">Docker</span>
+                  <span class="text-green-400">60%</span>
+                </div>
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  aria-valuenow="60"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  <div
+                    class="progress-fill"
+                    style="width: 60%"
+                    data-width="60%"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-gray-300">PostgreSQL</span>
+                  <span class="text-green-400">80%</span>
+                </div>
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  aria-valuenow="80"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  <div
+                    class="progress-fill"
+                    style="width: 80%"
+                    data-width="80%"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-gray-300">Bash</span>
+                  <span class="text-green-400">70%</span>
+                </div>
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  aria-valuenow="70"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  <div
+                    class="progress-fill"
+                    style="width: 70%"
+                    data-width="70%"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-gray-300">MySQL</span>
+                  <span class="text-green-400">85%</span>
+                </div>
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  aria-valuenow="85"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  <div
+                    class="progress-fill"
+                    style="width: 85%"
+                    data-width="85%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="flex flex-col items-center">
+          <p class="text-gray-300 text-sm mb-4">Связаться со мной:</p>
+          <div class="flex space-x-6">
+            <a
+              href="https://t.me/Lesnoy_umorust"
+              target="_blank"
+              title="Telegram"
+              class="flex flex-col items-center group"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-blue-400 group-hover:text-blue-300 transition duration-200"
+              >
+                <path
+                  d="M18 8C15.79 2.87 12.5 1.5 8 3c4.5 1.5 6.5 4.7 7 7-.5 1.5-2 3.5-5 4.5-1 .5-2 .5-3.5-.5-1.5-1-2.5-2.5-3-4.5-.5-2 .5-3.5 1.5-4.5.5-.5 1.5-1 2.5-.5 2 .5 3.5 1.5 4.5 3.5z"
+                />
+                <path d="M15 12h5v6H4V6h6" />
+              </svg>
+              <span class="text-xs mt-1 text-blue-400 group-hover:text-blue-300"
+                >Telegram</span
+              >
+            </a>
+            <a
+              href="https://vk.com/id549536760"
+              target="_blank"
+              title="VK"
+              class="flex flex-col items-center group"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-blue-400 group-hover:text-blue-300 transition duration-200"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M16.5 9.4l-4.5 5.9-4.5-5.9" />
+                <path d="M9 15.5h6" />
+              </svg>
+              <span class="text-xs mt-1 text-blue-400 group-hover:text-blue-300"
+                >VK</span
+              >
+            </a>
+            <a
+              href="https://github.com/Kirutka"
+              target="_blank"
+              title="GitHub"
+              class="flex flex-col items-center group"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-blue-400 group-hover:text-blue-300 transition duration-200"
+              >
+                <path
+                  d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+                />
+              </svg>
+              <span class="text-xs mt-1 text-blue-400 group-hover:text-blue-300"
+                >GitHub</span
+              >
+            </a>
+            <a
+              href="mailto:kirillzaporozec48@gmail.com"
+              target="_blank"
+              title="Email"
+              class="flex flex-col items-center group"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-blue-400 group-hover:text-blue-300 transition duration-200"
+              >
+                <path
+                  d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                />
+                <path d="M22 6l-10 7L2 6" />
+              </svg>
+              <span class="text-xs mt-1 text-blue-400 group-hover:text-blue-300"
+                >Email</span
+              >
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Форма по центру -->
+    <section class="max-w-2xl mx-auto px-4 py-12">
+      <h4 class="text-xl font-semibold mb-4 text-gray-200">
+        Напишите мне на почту
+      </h4>
+      <form
+        action="https://formspree.io/f/mkgbnenb"
+        method="POST"
+        class="space-y-4 bg-gray-800 p-6 rounded-lg shadow-md"
+      >
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-300"
+            >Имя</label
+          >
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            class="w-full mt-1 px-4 py-2 rounded-md bg-gray-700 border border-gray-600 focus:border-green-400 outline-none"
+          />
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-300"
+            >Email</label
+          >
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="w-full mt-1 px-4 py-2 rounded-md bg-gray-700 border border-gray-600 focus:border-green-400 outline-none"
+          />
+        </div>
+        <div>
+          <label for="subject" class="block text-sm font-medium text-gray-300"
+            >Тема</label
+          >
+          <input
+            type="text"
+            id="subject"
+            name="subject"
+            required
+            class="w-full mt-1 px-4 py-2 rounded-md bg-gray-700 border border-gray-600 focus:border-green-400 outline-none"
+          />
+        </div>
+        <div>
+          <label for="message" class="block text-sm font-medium text-gray-300"
+            >Сообщение</label
+          >
+          <textarea
+            id="message"
+            name="message"
+            rows="4"
+            required
+            class="w-full mt-1 px-4 py-2 rounded-md bg-gray-700 border border-gray-600 focus:border-green-400 outline-none"
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          class="bg-green-600 hover:bg-green-500 text-white px-6 py-2 rounded-md transition duration-200"
+        >
+          Отправить
+        </button>
+      </form>
+    </section>
+
+    <!-- Модальное окно -->
+    <div
+      id="modal"
+      class="hidden fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4"
+    >
+      <div class="relative max-w-3xl w-full">
+        <button
+          onclick="closeModal()"
+          class="absolute top-2 right-2 bg-black bg-opacity-70 text-white rounded-full p-2 z-10 text-xl"
+        >
+          &times;
+        </button>
+        <img
+          id="modal-img"
+          src=""
+          alt="Увеличенное фото"
+          class="w-full h-auto rounded-lg shadow-lg"
+        />
+      </div>
+    </div>
+
+    <!-- JS -->
+    <script>
+      const canvas = document.getElementById("bgCanvas");
+      const ctx = canvas.getContext("2d");
+      let width, height;
+      function resizeCanvas() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+      }
+      window.addEventListener("resize", resizeCanvas);
+      resizeCanvas();
+      const particles = [];
+      const particleCount = 50;
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 3 + 2,
+          vx: (Math.random() - 0.5) * 2,
+          vy: (Math.random() - 0.5) * 2,
+          color: "rgba(74, 222, 128, 0.05)",
+        });
+      }
+      function drawParticles() {
+        ctx.clearRect(0, 0, width, height);
+        for (let p of particles) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI);
+          ctx.fillStyle = p.color;
+          ctx.fill();
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x <= 0 || p.x >= width) p.vx *= -1;
+          if (p.y <= 0 || p.y >= height) p.vy *= -1;
+        }
+        requestAnimationFrame(drawParticles);
+      }
+      drawParticles();
+
+      // Прокрутка шапки
+      // Прокрутка шапки
+      window.addEventListener("scroll", () => {
+        const header = document.querySelector("header");
+        if (window.scrollY > 10) {
+          header.classList.add("scrolled");
+        } else {
+          header.classList.remove("scrolled");
+        }
+      });
+
+      // Модальное окно
+      const modal = document.getElementById("modal");
+      const modalImg = document.getElementById("modal-img");
+      function openModal(src) {
+        if (!modal || !modalImg) return;
+        modal.classList.remove("hidden");
+        modalImg.src = src;
+      }
+      function closeModal() {
+        if (!modal || !modalImg) return;
+        modal.classList.add("hidden");
+        modalImg.src = "";
+      }
+      modal?.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !modal?.classList.contains("hidden")) {
+          closeModal();
+        }
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        document.body.classList.add("loaded");
+      });
+    </script>
+  </body>
+</html>
