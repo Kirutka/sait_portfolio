@@ -82,6 +82,39 @@
     </header>
 
     <main class="max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-10 relative z-10">
-
+    <!-- Левая колонка -->
+    <div class="md:col-span-1 flex flex-col space-y-6">
+        <div class="grid grid-cols-1 gap-4">
+            <div
+                class="w-full h-40 rounded-lg overflow-hidden border-2 border-green-500 shadow-lg transform hover:scale-105 transition duration-300 cursor-pointer"
+                onclick="openModal('/static/photo1.png')">
+                <img
+                src="/static/photo1.png"
+                alt="Фото 1"
+                class="w-full h-full object-cover"
+                loading="lazy"/>
+            </div>
+        </div>
+        <section>
+            <h4 class="text-xl font-semibold mb-3 text-gray-200">Опыт</h4>
+            <div class="border-l-2 border-green-500 pl-4 mb-4">
+                <h5 class="font-semibold text-gray-200">Backend-разработка</h5>
+                <p class="text-gray-400 text-sm">2023 — настоящее время</p>
+                <ul class="text-gray-300 mt-1 list-disc ml-5 space-y-1">
+                <li>REST API на Golang, Gin, PostgreSQL</li>
+                <li>Работа с JSON для получения данных о погоде</li>
+                <li>Telegram-бот для составления тренировок</li>
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h4 class="text-xl font-semibold mb-3 text-gray-200">Образование</h4>
+            <div class="border-l-2 border-green-500 pl-4">
+                <h5 class="font-semibold text-gray-200">СГУВТ</h5>
+                <p class="text-gray-400 text-sm">2022 — 2026</p>
+                <p class="text-gray-300 mt-1">Информационные системы и технологии</p>
+            </div>
+        </section>
+    </div>
 </body>
 </html>
