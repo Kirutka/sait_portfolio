@@ -454,3 +454,53 @@
         }
       });
     </script>
+
+    <!-- Анимация фона -->
+    <script>
+      const canvas = document.getElementById("bgCanvas");
+      const ctx = canvas.getContext("2d");
+      let width, height;
+
+      function resizeCanvas() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+      }
+
+      window.addEventListener("resize", resizeCanvas);
+      resizeCanvas();
+
+      const particles = [];
+      const particleCount = 50;
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 3 + 2,
+          vx: (Math.random() - 0.5) * 2,
+          vy: (Math.random() - 0.5) * 2,
+          color: "rgba(74, 222, 128, 0.05)",
+        });
+      }
+
+      function drawParticles() {
+        ctx.clearRect(0, 0, width, height);
+        for (let p of particles) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI);
+          ctx.fillStyle = p.color;
+          ctx.fill();
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x <= 0 || p.x >= width) p.vx *= -1;
+          if (p.y <= 0 || p.y >= height) p.vy *= -1;
+        }
+        requestAnimationFrame(drawParticles);
+      }
+
+      drawParticles();
+    </script>
+  </body>
+</html>
