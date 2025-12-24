@@ -62,6 +62,46 @@
         font-weight: bold;
         cursor: pointer;
       }
+      /* Стили для контейнеров переводов */
+      .i18n-container {
+        display: inline-block;
+        position: relative;
+      }
+      .i18n-text {
+        display: inline;
+      }
+      .i18n-text[data-lang="ru"] {
+        display: inline; /* По умолчанию показываем русский */
+      }
+      .i18n-text[data-lang="en"] {
+        display: none; /* Скрываем английский */
+      }
+      /* Стили для кнопок языка */
+      .lang-button {
+        padding: 0.5rem 1rem;
+        border-radius: 0.375rem;
+        font-weight: 500;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .lang-button:not(.active) {
+        background-color: transparent;
+        color: #94a3b8; /* Серый цвет для неактивной кнопки */
+      }
+      .lang-button.active {
+        background-color: #f1f5f9; /* Белый фон для активной кнопки */
+        color: #1e293b; /* Темно-серый текст для активной кнопки */
+      }
+      .lang-button:hover:not(.active) {
+        background-color: #334155; /* Темный серый при наведении */
+        color: #f1f5f9; /* Белый текст при наведении */
+      }
+      .lang-selector-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
     </style>
   </head>
   <body class="bg-gray-900 text-gray-100">
@@ -87,31 +127,73 @@
           Kirill Zaporozhets
         </a>
         <nav class="space-x-4 hidden md:flex">
-          <a href="/" class="text-gray-300 hover:text-green-400 transition-colors duration-200">Главная</a>
-          <a href="/myproject" class="text-green-400 font-medium">Мои проекты</a>
-          <a href="/about_me" class="text-gray-300 hover:text-green-400 transition-colors duration-200">Обо мне</a>
-          <a href="/contacts" class="text-gray-300 hover:text-green-400 transition-colors duration-200">Контакты</a>
+          <a href="/" class="text-gray-300 hover:text-green-400 transition-colors duration-200 text-lg">
+            <span class="i18n-container" data-i18n="home">
+              <span class="i18n-text" data-lang="ru">Главная</span>
+              <span class="i18n-text" data-lang="en">Home</span>
+            </span>
+          </a>
+          <a href="/myproject" class="text-green-400 font-medium text-lg">
+            <span class="i18n-container" data-i18n="projects">
+              <span class="i18n-text" data-lang="ru">Мои проекты</span>
+              <span class="i18n-text" data-lang="en">Projects</span>
+            </span>
+          </a>
+          <a href="/about_me" class="text-gray-300 hover:text-green-400 transition-colors duration-200 text-lg">
+            <span class="i18n-container" data-i18n="about">
+              <span class="i18n-text" data-lang="ru">Обо мне</span>
+              <span class="i18n-text" data-lang="en">About</span>
+            </span>
+          </a>
+          <a href="/contacts" class="text-gray-300 hover:text-green-400 transition-colors duration-200 text-lg">
+            <span class="i18n-container" data-i18n="contacts">
+              <span class="i18n-text" data-lang="ru">Контакты</span>
+              <span class="i18n-text" data-lang="en">Contacts</span>
+            </span>
+          </a>
         </nav>
+        <!-- Кнопки выбора языка -->
+        <div class="lang-selector-wrapper">
+          <button
+            id="lang-ru"
+            class="lang-button"
+            aria-label="Выбрать русский язык"
+          >
+            RU
+          </button>
+          <button
+            id="lang-en"
+            class="lang-button"
+            aria-label="Выбрать английский язык"
+          >
+            EN
+          </button>
+        </div>
       </div>
     </header>
 
   <main class="max-w-6xl mx-auto px-4 py-12">
-    <h2 class="text-3xl font-bold mb-8 text-green-400 text-center">Мои проекты</h2>
+    <h2 class="text-3xl font-bold mb-8 text-green-400 text-center">
+      <span class="i18n-container" data-i18n="myProjects">
+        <span class="i18n-text" data-lang="ru">Мои проекты</span>
+        <span class="i18n-text" data-lang="en">My Projects</span>
+      </span>
+    </h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       
       <!-- 1. Справочник стран -->
       <div class="bg-gray-800 rounded-lg shadow-lg border border-gray-700 hover:border-green-500 transition duration-300 cursor-pointer transform hover:-translate-y-1">
-        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center">Справочник стран</h3>
+        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center text-lg">Справочник стран</h3>
         <div class="p-5 pt-0">
           <div class="relative w-full h-40 mb-3 overflow-hidden rounded-md group">
             <img src="static\image_projects\Manager.png" alt="Web приложение 'Справочник стран'" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onclick="openModal('static\\image_projects\\Manager.png')" style="cursor: pointer"/>
           </div>
-          <p class="text-gray-300 text-sm mb-3">Полноценное веб-приложение с бэкендом на Go и взаимодействием с базой данных</p>
-          <ul class="mt-2 space-y-1 text-xs text-gray-400">
-            <li>• Фреймворк Gin для REST API</li>
-            <li>• PostgreSQL с миграциями</li>
-            <li>• Полный CRUD + валидация данных</li>
-            <li>• JWT-аутентификация (доп. сложность)</li>
+          <p class="text-gray-300 text-base mb-3">Короткое описание</p>
+          <ul class="mt-2 space-y-1 text-sm text-gray-400">
+            <li>• Написать</li>
+            <li>• Написать</li>
+            <li>• Написать</li>
+            <li>• Написать</li>
           </ul>
           <a href="https://github.com/Kirutka/Manager-of-countries" target="_blank" class="mt-3 block text-blue-400 hover:text-blue-300 text-center">GitHub</a>
         </div>
@@ -119,16 +201,17 @@
 
       <!-- 2. Telegram-бот для тренировок -->
       <div class="bg-gray-800 rounded-lg shadow-lg border border-gray-700 hover:border-green-500 transition duration-300 cursor-pointer transform hover:-translate-y-1">
-        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center">Telegram-бот для тренировок</h3>
+        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center text-lg">Telegram-бот для тренировок</h3>
         <div class="p-5 pt-0">
           <div class="relative w-full h-40 mb-3 overflow-hidden rounded-md group">
             <img src="static\image_projects\Telegram.png" alt="Telegram бот для тренировок на Go" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onclick="openModal('static\\image_projects\\Telegram.png')" style="cursor: pointer"/>
           </div>
-          <p class="text-gray-300 text-sm mb-3">Сложный бот с многоуровневым меню и хранением состояния пользователей.</p>
-          <ul class="mt-2 space-y-1 text-xs text-gray-400">
-            <li>• Работа с Telegram Bot API</li>
-            <li>• Inline-клавиатуры и FSM (Finite State Machine)</li>
-            <li>• Интеграция с внешними API (например, nutritionix)</li>
+          <p class="text-gray-300 text-base mb-3">Короткое описание</p>
+          <ul class="mt-2 space-y-1 text-sm text-gray-400">
+            <li>• Написать</li>
+            <li>• Написать</li>
+            <li>• Написать</li>
+            <li>• Написать</li>
           </ul>
           <a href="https://github.com/Kirutka/Telegram-bot-for-training" target="_blank" class="mt-3 block text-blue-400 hover:text-blue-300 text-center">GitHub</a>
         </div>
@@ -136,16 +219,17 @@
 
       <!-- 3. Крестики-нолики с ИИ -->
       <div class="bg-gray-800 rounded-lg shadow-lg border border-gray-700 hover:border-green-500 transition duration-300 cursor-pointer transform hover:-translate-y-1">
-        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center">Крестики-нолики с ИИ</h3>
+        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center text-lg">Крестики-нолики с ИИ</h3>
         <div class="p-5 pt-0">
           <div class="relative w-full h-40 mb-3 overflow-hidden rounded-md group">
             <img src="static\image_projects\Crosses.png" alt="Крестики-нолики на Go с графикой" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onclick="openModal('static\\image_projects\\Crosses.png')" style="cursor: pointer"/>
           </div>
-          <p class="text-gray-300 text-sm mb-3">Графическое приложение с алгоритмами искусственного интеллекта.</p>
-          <ul class="mt-2 space-y-1 text-xs text-gray-400">
-            <li>• Библиотека Ebiten для рендеринга</li>
-            <li>• Алгоритм минимакса для ИИ</li>
-            <li>• Система обработки событий (мышь/клавиатура)</li>
+          <p class="text-gray-300 text-base mb-3">Короткое описание</p>
+          <ul class="mt-2 space-y-1 text-sm text-gray-400">
+            <li>• Написать</li>
+            <li>• Написать</li>
+            <li>• Написать</li>
+            <li>• Написать</li>
           </ul>
           <a href="https://github.com/Kirutka/Crosses-of-Noliki" target="_blank" class="mt-3 block text-blue-400 hover:text-blue-300 text-center">GitHub</a>
         </div>
@@ -153,16 +237,17 @@
 
       <!-- 4. 2D Игра "Бегущий мальчик" -->
       <div class="bg-gray-800 rounded-lg shadow-lg border border-gray-700 hover:border-green-500 transition duration-300 cursor-pointer transform hover:-translate-y-1">
-        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center">2D Игра "Бегущий мальчик"</h3>
+        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center text-lg">2D Игра "Бегущий мальчик"</h3>
         <div class="p-5 pt-0">
           <div class="relative w-full h-40 mb-3 overflow-hidden rounded-md group">
             <img src="static\image_projects\Boy.png" alt="2D игра с управлением и столкновениями" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onclick="openModal('static\\image_projects\\Boy.png')" style="cursor: pointer"/>
           </div>
-          <p class="text-gray-300 text-sm mb-3">Игра с обработкой коллизий и игровой логикой.</p>
-          <ul class="mt-2 space-y-1 text-xs text-gray-400">
-            <li>• Детекция столкновений (AABB)</li>
-            <li>• Система игрового времени</li>
-            <li>• Управление персонажем</li>
+          <p class="text-gray-300 text-base mb-3">Короткое описание</p>
+          <ul class="mt-2 space-y-1 text-sm text-gray-400">
+            <li>• Написать</li>
+            <li>• Написать</li>
+            <li>• Написать</li>
+            <li>• Написать</li>
           </ul>
           <a href="https://github.com/Kirutka/Run-Boy-Run" target="_blank" class="mt-3 block text-blue-400 hover:text-blue-300 text-center">GitHub</a>
         </div>
@@ -170,16 +255,17 @@
 
       <!-- 5. Игра "Жизнь" -->
       <div class="bg-gray-800 rounded-lg shadow-lg border border-gray-700 hover:border-green-500 transition duration-300 cursor-pointer transform hover:-translate-y-1">
-        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center">Игра "Жизнь"</h3>
+        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center text-lg">Игра "Жизнь"</h3>
         <div class="p-5 pt-0">
           <div class="relative w-full h-40 mb-3 overflow-hidden rounded-md group">
             <img src="static\image_projects\GameLife.png" alt="Cellular Automaton Game of Life" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onclick="openModal('static\\image_projects\\GameLife.png')" style="cursor: pointer"/>
           </div>
-          <p class="text-gray-300 text-sm mb-3">Реализация сложного алгоритма с визуализацией.</p>
-          <ul class="mt-2 space-y-1 text-xs text-gray-400">
-            <li>• Оптимизированный алгоритм для больших сеток</li>
-            <li>• Интерактивное создание паттернов</li>
-            <li>• Управление скоростью симуляции</li>
+          <p class="text-gray-300 text-base mb-3">Короткое описание</p>
+          <ul class="mt-2 space-y-1 text-sm text-gray-400">
+            <li>• Написать</li>
+            <li>• Написать</li>
+            <li>• Написать</li>
+            <li>• Написать</li>
           </ul>
           <a href="https://github.com/Kirutka/Game-life" target="_blank" class="mt-3 block text-blue-400 hover:text-blue-300 text-center">GitHub</a>
         </div>
@@ -187,16 +273,17 @@
 
       <!-- 6. Системный монитор -->
       <div class="bg-gray-800 rounded-lg shadow-lg border border-gray-700 hover:border-green-500 transition duration-300 cursor-pointer transform hover:-translate-y-1">
-        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center">Системный монитор</h3>
+        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center text-lg">Системный монитор</h3>
         <div class="p-5 pt-0">
           <div class="relative w-full h-40 mb-3 overflow-hidden rounded-md group">
             <img src="static\image_projects\Monitor.png" alt="Системный монитор на Go" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onclick="openModal('static\\image_projects\\Monitor.png')" style="cursor: pointer"/>
           </div>
-          <p class="text-gray-300 text-sm mb-3">Работа с низкоуровневыми системными метриками.</p>
-          <ul class="mt-2 space-y-1 text-xs text-gray-400">
-            <li>• Парсинг /proc и системных вызовов</li>
-            <li>• Реалтайм-визуализация данных</li>
-            <li>• Кроссплатформенная поддержка</li>
+          <p class="text-gray-300 text-base mb-3">Короткое описание</p>
+          <ul class="mt-2 space-y-1 text-sm text-gray-400">
+            <li>• Написать</li>
+            <li>• Написать</li>
+            <li>• Написать</li>
+            <li>• Написать</li>
           </ul>
           <a href="https://github.com/Kirutka/Monitoring-system" target="_blank" class="mt-3 block text-blue-400 hover:text-blue-300 text-center">GitHub</a>
         </div>
@@ -204,16 +291,17 @@
 
       <!-- 7. Погодный API клиент -->
       <div class="bg-gray-800 rounded-lg shadow-lg border border-gray-700 hover:border-green-500 transition duration-300 cursor-pointer transform hover:-translate-y-1">
-        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center">Погодный API клиент</h3>
+        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center text-lg">Погодный API клиент</h3>
         <div class="p-5 pt-0">
           <div class="relative w-full h-40 mb-3 overflow-hidden rounded-md group">
-            <img src="static\image_projects\ConsoleWeather.png" alt="Консольное приложение прогноза погоды" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onclick="openModal('static/image_projects/ConsoleWeather.png')" style="cursor: pointer"/>
+            <img src="static\image_projects\ConsoleWeather.png" alt="Консольное приложение прогноза погоды" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onclick="openModal('static/image/projects/ConsoleWeather.png')" style="cursor: pointer"/>
           </div>
-          <p class="text-gray-300 text-sm mb-3">Интеграция с внешним API (OpenWeatherMap).</p>
-          <ul class="mt-2 space-y-1 text-xs text-gray-400">
-            <li>• HTTP-клиент с таймаутами</li>
-            <li>• Кеширование запросов</li>
-            <li>• Поддержка разных единиц измерения</li>
+          <p class="text-gray-300 text-base mb-3">Короткое описание</p>
+          <ul class="mt-2 space-y-1 text-sm text-gray-400">
+            <li>• Написать</li>
+            <li>• Написать</li>
+            <li>• Написать</li>
+            <li>• Написать</li>
           </ul>
           <a href="https://github.com/Kirutka/Console-weather" target="_blank" class="mt-3 block text-blue-400 hover:text-blue-300 text-center">GitHub</a>
         </div>
@@ -221,16 +309,17 @@
 
       <!-- 8. Веб-генератор паролей -->
       <div class="bg-gray-800 rounded-lg shadow-lg border border-gray-700 hover:border-green-500 transition duration-300 cursor-pointer transform hover:-translate-y-1">
-        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center">Веб-Генератор паролей</h3>
+        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center text-lg">Веб-Генератор паролей</h3>
         <div class="p-5 pt-0">
           <div class="relative w-full h-40 mb-3 overflow-hidden rounded-md group">
             <img src="static\image_projects\GenPass.png" alt="Веб-генератор паролей на Go" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onclick="openModal('static\\image_projects\\GenPass.png')" style="cursor: pointer"/>
           </div>
-          <p class="text-gray-300 text-sm mb-3">Веб-приложение с обработкой форм.</p>
-          <ul class="mt-2 space-y-1 text-xs text-gray-400">
-            <li>• Генерация криптографически безопасных паролей</li>
-            <li>• Валидация входных параметров</li>
-            <li>• HTML-шаблоны</li>
+          <p class="text-gray-300 text-base mb-3">Короткое описание</p>
+          <ul class="mt-2 space-y-1 text-sm text-gray-400">
+            <li>• Написать</li>
+            <li>• Написать</li>
+            <li>• Написать</li>
+            <li>• Написать</li>
           </ul>
           <a href="https://github.com/Kirutka/Password-generator" target="_blank" class="mt-3 block text-blue-400 hover:text-blue-300 text-center">GitHub</a>
         </div>
@@ -238,16 +327,17 @@
 
       <!-- 9. Генератор QR-кодов -->
       <div class="bg-gray-800 rounded-lg shadow-lg border border-gray-700 hover:border-green-500 transition duration-300 cursor-pointer transform hover:-translate-y-1">
-        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center">Генератор QR-кодов</h3>
+        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center text-lg">Генератор QR-кодов</h3>
         <div class="p-5 pt-0">
           <div class="relative w-full h-40 mb-3 overflow-hidden rounded-md group">
             <img src="static\image_projects\QRcode.png" alt="QR-код генератор на Go" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onclick="openModal('static\\image_projects\\QRcode.png')" style="cursor: pointer"/>
           </div>
-          <p class="text-gray-300 text-sm mb-3">Работа с бинарными данными и изображениями.</p>
-          <ul class="mt-2 space-y-1 text-xs text-gray-400">
-            <li>• Использование сторонней библиотеки QR</li>
-            <li>• Генерация PNG с настраиваемыми параметрами</li>
-            <li>• CLI и веб-интерфейс</li>
+          <p class="text-gray-300 text-base mb-3">Короткое описание</p>
+          <ul class="mt-2 space-y-1 text-sm text-gray-400">
+            <li>• Написать</li>
+            <li>• Написать</li>
+            <li>• Написать</li>
+            <li>• Написать</li>
           </ul>
           <a href="https://github.com/Kirutka/QR-codes-generator" target="_blank" class="mt-3 block text-blue-400 hover:text-blue-300 text-center">GitHub</a>
         </div>
@@ -255,16 +345,17 @@
 
       <!-- 10. Змейка -->
       <div class="bg-gray-800 rounded-lg shadow-lg border border-gray-700 hover:border-green-500 transition duration-300 cursor-pointer transform hover:-translate-y-1">
-        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center">Змейка</h3>
+        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center text-lg">Змейка</h3>
         <div class="p-5 pt-0">
           <div class="relative w-full h-40 mb-3 overflow-hidden rounded-md group">
             <img src="static\image_projects\Snake.png" alt="Игра Змейка на Go" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onclick="openModal('static\\image_projects\\Snake.png')" style="cursor: pointer"/>
           </div>
-          <p class="text-gray-300 text-sm mb-3">Классическая игра с игровой логикой.</p>
-          <ul class="mt-2 space-y-1 text-xs text-gray-400">
-            <li>• ООП-структура проекта</li>
-            <li>• Обработка клавиатурного ввода</li>
-            <li>• Система подсчёта очков</li>
+          <p class="text-gray-300 text-base mb-3">Короткое описание</p>
+          <ul class="mt-2 space-y-1 text-sm text-gray-400">
+            <li>• Написать</li>
+            <li>• Написать</li>
+            <li>• Написать</li>
+            <li>• Написать</li>
           </ul>
           <a href="https://github.com/Kirutka/Snake" target="_blank" class="mt-3 block text-blue-400 hover:text-blue-300 text-center">GitHub</a>
         </div>
@@ -272,16 +363,17 @@
 
       <!-- 11. Pomodoro Таймер -->
       <div class="bg-gray-800 rounded-lg shadow-lg border border-gray-700 hover:border-green-500 transition duration-300 cursor-pointer transform hover:-translate-y-1">
-        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center">Pomodoro Таймер</h3>
+        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center text-lg">Pomodoro Таймер</h3>
         <div class="p-5 pt-0">
           <div class="relative w-full h-40 mb-3 overflow-hidden rounded-md group">
             <img src="static\image_projects\Tomato.png" alt="Консольный Pomodoro таймер на Go" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onclick="openModal('static\\image_projects\\Tomato.png')" style="cursor: pointer"/>
           </div>
-          <p class="text-gray-300 text-sm mb-3">Консольное приложение с таймерами.</p>
-          <ul class="mt-2 space-y-1 text-xs text-gray-400">
-            <li>• Работа с горутинами для таймера</li>
-            <li>• Конфигурация через флаги</li>
-            <li>• Логирование сессий</li>
+          <p class="text-gray-300 text-base mb-3">Короткое описание</p>
+          <ul class="mt-2 space-y-1 text-sm text-gray-400">
+            <li>• Написать</li>
+            <li>• Написать</li>
+            <li>• Написать</li>
+            <li>• Написать</li>
           </ul>
           <a href="https://github.com/Kirutka/Tomato-timer" target="_blank" class="mt-3 block text-blue-400 hover:text-blue-300 text-center">GitHub</a>
         </div>
@@ -289,16 +381,17 @@
 
       <!-- 12. Игра "Угадай число" -->
       <div class="bg-gray-800 rounded-lg shadow-lg border border-gray-700 hover:border-green-500 transition duration-300 cursor-pointer transform hover:-translate-y-1">
-        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center">Игра "Угадай число"</h3>
+        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center text-lg">Игра "Угадай число"</h3>
         <div class="p-5 pt-0">
           <div class="relative w-full h-40 mb-3 overflow-hidden rounded-md group">
             <img src="static\image_projects\Guess.png" alt="CLI игра 'Угадай число'" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onclick="openModal('static\\image_projects\\Guess.png')" style="cursor: pointer"/>
           </div>
-          <p class="text-gray-300 text-sm mb-3">Базовое консольное приложение.</p>
-          <ul class="mt-2 space-y-1 text-xs text-gray-400">
-            <li>• Работа с пакетом fmt</li>
-            <li>• Обработка пользовательского ввода</li>
-            <li>• Простая игровая логика</li>
+          <p class="text-gray-300 text-base mb-3">Короткое описание</p>
+          <ul class="mt-2 space-y-1 text-sm text-gray-400">
+            <li>• Написать</li>
+            <li>• Написать</li>
+            <li>• Написать</li>
+            <li>• Написать</li>
           </ul>
           <a href="https://github.com/Kirutka/Guess-the-number" target="_blank" class="mt-3 block text-blue-400 hover:text-blue-300 text-center">GitHub</a>
         </div>
@@ -306,13 +399,14 @@
       
       <!-- 13. Игра "Пинг-Понг" -->
       <div class="bg-gray-800 rounded-lg shadow-lg border border-gray-700 hover:border-green-500 transition duration-300 cursor-pointer transform hover:-translate-y-1">
-        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center">Игра "Пинг-Понг"</h3>
+        <h3 class="font-semibold text-green-400 p-5 pt-6 pb-2 text-center text-lg">Игра "Пинг-Понг"</h3>
         <div class="p-5 pt-0">
           <div class="relative w-full h-40 mb-3 overflow-hidden rounded-md group">
             <img src="static\image_projects\Ping-Pong.png" alt="CLI игра 'Пинг-Понг'" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onclick="openModal('static\\image_projects\\Ping-Pong.png')" style="cursor: pointer"/>
           </div>
-          <p class="text-gray-300 text-sm mb-3">Написать</p>
-          <ul class="mt-2 space-y-1 text-xs text-gray-400">
+          <p class="text-gray-300 text-base mb-3">Короткое описание</p>
+          <ul class="mt-2 space-y-1 text-sm text-gray-400">
+            <li>• Написать</li>
             <li>• Написать</li>
             <li>• Написать</li>
             <li>• Написать</li>
@@ -326,109 +420,158 @@
 
     <!-- Подвал -->
     <footer class="max-w-6xl mx-auto px-4 py-8 flex flex-col items-center">
-      <p class="text-gray-300 text-sm mb-4">Свяжитесь со мной:</p>
-      <div class="flex space-x-6">
+      <!-- Центрированные иконки -->
+      <div class="flex justify-center flex-wrap gap-4">
+        <!-- Контакты -->
         <a
-          href="https://t.me/Lesnoy_umorust"
-          target="_blank"
-          title="Telegram"
-          class="flex flex-col items-center group">
+          href="/contacts"
+          aria-label="Контакты"
+          class="group p-2 rounded-lg border-2 border-transparent hover:border-green-500/30 transition-all duration-300"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="28"
-            height="28"
+            width="24"
+            height="24"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
             stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="text-blue-400 group-hover:text-blue-300 transition duration-200">
-            <path
-              d="M18 8C15.79 2.87 12.5 1.5 8 3c4.5 1.5 6.5 4.7 7 7-.5 1.5-2 3.5-5 4.5-1 .5-2 .5-3.5-.5-1.5-1-2.5-2.5-3-4.5-.5-2 .5-3.5 1.5-4.5.5-.5 1.5-1 2.5-.5 2 .5 3.5 1.5 4.5 3.5z"/>
-            <path d="M15 12h5v6H4V6h6" />
+            class="text-gray-400 group-hover:text-green-400 transition-all transform group-hover:scale-110 group-hover:-rotate-3"
+          >
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.74" />
           </svg>
-          <span class="text-xs mt-1 text-blue-400 group-hover:text-blue-300">
-            Telegram
-          </span>
         </a>
-        <a
-          href="https://vk.com/id549536760"
-          target="_blank"
-          title="VK"
-          class="flex flex-col items-center group">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="28"
-            height="28"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="text-blue-400 group-hover:text-blue-300 transition duration-200">
-            <circle cx="12" cy="12" r="10" />
-            <path d="M16.5 9.4l-4.5 5.9-4.5-5.9" />
-            <path d="M9 15.5h6" />
-          </svg>
-          <span class="text-xs mt-1 text-blue-400 group-hover:text-blue-300">
-            VK
-          </span>
-        </a>
+
+        <!-- GitHub -->
         <a
           href="https://github.com/Kirutka"
           target="_blank"
-          title="GitHub"
-          class="flex flex-col items-center group">
+          aria-label="GitHub"
+          class="group p-2 rounded-lg border-2 border-transparent hover:border-green-500/30 transition-all duration-300"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="28"
-            height="28"
+            width="24"
+            height="24"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
             stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="text-blue-400 group-hover:text-blue-300 transition duration-200">
+            class="text-gray-400 group-hover:text-green-400 transition-all transform group-hover:scale-110 group-hover:rotate-3"
+          >
             <path
-              d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+              d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+            />
           </svg>
-          <span class="text-xs mt-1 text-blue-400 group-hover:text-blue-300">
-            GitHub
-          </span>
         </a>
+
+        <!-- Резюме -->
         <a
-          href="mailto:kirillzaporozec48@gmail.com"
+          href="/static/resume.pdf"
           target="_blank"
-          title="Email"
-          class="flex flex-col items-center group">
+          aria-label="Резюме в формате PDF"
+          class="group p-2 rounded-lg border-2 border-transparent hover:border-green-500/30 transition-all duration-300"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="28"
-            height="28"
+            width="24"
+            height="24"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
             stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="text-blue-400 group-hover:text-blue-300 transition duration-200">
-            <path
-              d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-            <path d="M22 6l-10 7L2 6" />
+            class="text-gray-400 group-hover:text-green-400 transition-all transform group-hover:scale-110 group-hover:-rotate-3"
+          >
+            <path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4" />
+            <path d="M14 2v5.5a2.5 2.5 0 0 0 2.5 2.5H20" />
+            <path d="M9 12v-1a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-1" />
+            <circle cx="9" cy="12" r="1" />
+            <circle cx="9" cy="16" r="1" />
           </svg>
-          <span class="text-xs mt-1 text-blue-400 group-hover:text-blue-300">
-            Email
-          </span>
         </a>
       </div>
     </footer>
 
     <!-- Анимация загрузки -->
     <script>
+      // === Переводы ===
+      const translations = {
+        ru: {
+          home: "Главная",
+          projects: "Мои проекты",
+          about: "Обо мне",
+          contacts: "Контакты",
+          myProjects: "Мои проекты"
+        },
+        en: {
+          home: "Home",
+          projects: "Projects",
+          about: "About",
+          contacts: "Contacts",
+          myProjects: "My Projects"
+        }
+      };
+
+      function setLanguage(lang) {
+        const t = translations[lang];
+        if (!t) return;
+
+        // Обновляем все элементы с data-i18n
+        document.querySelectorAll('[data-i18n]').forEach(container => {
+          const key = container.getAttribute('data-i18n');
+          if (t[key] !== undefined) {
+            // Находим вложенные span для каждого языка
+            const ruSpan = container.querySelector('.i18n-text[data-lang="ru"]');
+            const enSpan = container.querySelector('.i18n-text[data-lang="en"]');
+
+            if (ruSpan && enSpan) {
+              if (lang === 'ru') {
+                ruSpan.style.display = 'inline';
+                enSpan.style.display = 'none';
+              } else {
+                ruSpan.style.display = 'none';
+                enSpan.style.display = 'inline';
+              }
+            }
+          }
+        });
+
+        // Обновляем состояние кнопок
+        const ruButton = document.getElementById('lang-ru');
+        const enButton = document.getElementById('lang-en');
+        if (ruButton && enButton) {
+          if (lang === 'ru') {
+            ruButton.classList.add('active');
+            enButton.classList.remove('active');
+          } else {
+            ruButton.classList.remove('active');
+            enButton.classList.add('active');
+          }
+        }
+
+        // Сохраняем язык
+        localStorage.setItem('lang', lang);
+        document.documentElement.lang = lang;
+      }
+
+      // Обработчики клика по кнопкам языка
+      document.getElementById('lang-ru')?.addEventListener('click', () => {
+        setLanguage('ru');
+      });
+
+      document.getElementById('lang-en')?.addEventListener('click', () => {
+        setLanguage('en');
+      });
+
+      // Инициализация
       document.addEventListener("DOMContentLoaded", function () {
+        // Устанавливаем язык при загрузке
+        const savedLang = localStorage.getItem('lang') || 'ru';
+        setLanguage(savedLang);
+        // Плавное появление
         document.body.classList.add("loaded");
       });
     </script>
