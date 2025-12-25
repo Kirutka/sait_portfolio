@@ -16,6 +16,9 @@
         color: #f1f5f9;
         opacity: 0;
         transition: opacity 0.5s ease-in-out;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
       }
       .background-canvas {
         position: fixed;
@@ -34,6 +37,7 @@
         transition: all 0.2s ease-in-out;
       }
 
+      /* Модальное окно */
       .modal {
         display: none;
         position: fixed;
@@ -41,19 +45,23 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.8);
-        z-index: 100;
+        background-color: rgba(0, 0, 0, 0.85);
+        z-index: 1000;
         align-items: center;
         justify-content: center;
+        backdrop-filter: blur(3px);
       }
       .modal-content {
         max-width: 90%;
         max-height: 90%;
+        text-align: center;
       }
       .modal-content img {
         max-width: 100%;
-        max-height: 80vh;
+        max-height: 85vh;
         object-fit: contain;
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
       }
       .close-modal {
         position: absolute;
@@ -63,6 +71,10 @@
         font-size: 40px;
         font-weight: bold;
         cursor: pointer;
+        transition: color 0.2s;
+      }
+      .close-modal:hover {
+        color: #10b981;
       }
 
       /* Переводы */
@@ -88,23 +100,18 @@
         font-size: 1rem;
         cursor: pointer;
         transition: all 0.2s ease;
-      }
-      .lang-button:not(.active) {
-        background-color: transparent;
+        border: none;
+        background: transparent;
         color: #94a3b8;
       }
       .lang-button.active {
-        background-color: #f1f5f9;
-        color: #1e293b;
+        background-color: #1e293b;
+        color: #f1f5f9;
+        border: 1px solid #334155;
       }
       .lang-button:hover:not(.active) {
         background-color: #334155;
         color: #f1f5f9;
-      }
-      .lang-selector-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
       }
 
       /* Карточка */
@@ -131,6 +138,11 @@
         margin: 0 auto 1.5rem;
         display: block;
         background-color: #334155;
+        transition: transform 0.2s ease;
+        cursor: pointer;
+      }
+      .profile-photo:hover {
+        transform: scale(1.05);
       }
 
       /* Список */
@@ -220,7 +232,7 @@
             </span>
           </a>
         </nav>
-        <div class="lang-selector-wrapper">
+        <div class="lang-selector-wrapper flex gap-1">
           <button id="lang-ru" class="lang-button" aria-label="Выбрать русский язык">RU</button>
           <button id="lang-en" class="lang-button" aria-label="Выбрать английский язык">EN</button>
         </div>
@@ -241,10 +253,11 @@
           src="/static/image/GeneralPhoto.png"
           alt="Kirill Zaporozhets"
           class="profile-photo"
-          onerror="this.src='/static/image/GeneralPhoto.png';"
+          id="profilePhoto"
+          onerror="this.src='/static/image/placeholder.png';"
         />
 
-        <!-- Имя — С ПОДДЕРЖКОЙ i18n -->
+        <!-- Имя -->
         <h2 class="text-2xl font-bold text-center mb-2">
           <span class="i18n-container" data-i18n="name">
             <span class="i18n-text" data-lang="ru">Кирилл Запорожец</span>
@@ -259,8 +272,8 @@
             <circle cx="12" cy="10" r="3" />
           </svg>
           <span class="i18n-container" data-i18n="location">
-            <span class="i18n-text" data-lang="ru">Новосибирск, Россия</span>
-            <span class="i18n-text" data-lang="en">Novosibirsk, Russia</span>
+            <span class="i18n-text" data-lang="ru">Москва, Россия</span>
+            <span class="i18n-text" data-lang="en">Moscow, Russia</span>
           </span>
         </div>
 
@@ -291,24 +304,8 @@
           </h3>
           <ul class="about-list">
             <li class="i18n-container" data-i18n="task1">
-              <span class="i18n-text" data-lang="ru">Разрабатываю backend для совместного редактора кода (Golang, WebSockets)</span>
-              <span class="i18n-text" data-lang="en">Developing backend for a collaborative code editor (Golang, WebSockets)</span>
-            </li>
-            <li class="i18n-container" data-i18n="task2">
-              <span class="i18n-text" data-lang="ru">Изучаю Erlang и распределённые системы</span>
-              <span class="i18n-text" data-lang="en">Learning Erlang and distributed systems</span>
-            </li>
-            <li class="i18n-container" data-i18n="task3">
-              <span class="i18n-text" data-lang="ru">Создаю и поддерживаю личный сайт-портфолио</span>
-              <span class="i18n-text" data-lang="en">Building and maintaining a personal portfolio website</span>
-            </li>
-            <li class="i18n-container" data-i18n="task4">
-              <span class="i18n-text" data-lang="ru">Тренируюсь 6 раз в неделю: силовые и кардио-нагрузки</span>
-              <span class="i18n-text" data-lang="en">Working out 6 times a week: strength & cardio training</span>
-            </li>
-            <li class="i18n-container" data-i18n="task5">
-              <span class="i18n-text" data-lang="ru">Читаю техническую литературу и книги по саморазвитию</span>
-              <span class="i18n-text" data-lang="en">Reading technical and self-development books</span>
+              <span class="i18n-text" data-lang="ru">Написать</span>
+              <span class="i18n-text" data-lang="en">Written</span>
             </li>
           </ul>
 
@@ -343,9 +340,7 @@
 
     <!-- Подвал -->
     <footer class="max-w-6xl mx-auto px-4 py-8 flex flex-col items-center">
-      <!-- Центрированные иконки -->
       <div class="flex justify-center flex-wrap gap-4">
-        <!-- Контакты -->
         <a
           href="/contacts"
           aria-label="Контакты"
@@ -368,7 +363,6 @@
           </svg>
         </a>
 
-        <!-- GitHub -->
         <a
           href="https://github.com/Kirutka"
           target="_blank"
@@ -391,7 +385,6 @@
           </svg>
         </a>
 
-        <!-- Резюме -->
         <a
           href="/static/resume.pdf"
           target="_blank"
@@ -418,7 +411,16 @@
       </div>
     </footer>
 
+    <!-- Модальное окно для фото -->
+    <div id="photoModal" class="modal">
+      <span class="close-modal" id="closeModal">&times;</span>
+      <div class="modal-content">
+        <img id="modalImage" src="" alt="Kirill Zaporozhets — enlarged">
+      </div>
+    </div>
+
     <script>
+      // === I18n ===
       const translations = {
         ru: {
           home: "Главная",
@@ -464,39 +466,30 @@
         const t = translations[lang];
         if (!t) return;
 
-        // Обновляем все элементы с data-i18n
         document.querySelectorAll('[data-i18n]').forEach(container => {
           const key = container.getAttribute('data-i18n');
-          if (t[key] === undefined) return; // skip unknown keys
+          if (!t[key]) return;
 
           const ruSpan = container.querySelector('.i18n-text[data-lang="ru"]');
           const enSpan = container.querySelector('.i18n-text[data-lang="en"]');
-
           if (ruSpan && enSpan) {
-            if (lang === 'ru') {
-              ruSpan.style.display = 'inline';
-              enSpan.style.display = 'none';
-            } else {
-              ruSpan.style.display = 'none';
-              enSpan.style.display = 'inline';
-            }
+            ruSpan.style.display = lang === 'ru' ? 'inline' : 'none';
+            enSpan.style.display = lang === 'en' ? 'inline' : 'none';
           }
         });
 
-        // Кнопки
-        const ruButton = document.getElementById('lang-ru');
-        const enButton = document.getElementById('lang-en');
-        if (ruButton && enButton) {
-          ruButton.classList.toggle('active', lang === 'ru');
-          enButton.classList.toggle('active', lang === 'en');
+        const ruBtn = document.getElementById('lang-ru');
+        const enBtn = document.getElementById('lang-en');
+        if (ruBtn && enBtn) {
+          ruBtn.classList.toggle('active', lang === 'ru');
+          enBtn.classList.toggle('active', lang === 'en');
         }
 
-        // Дата — обновляем формат под язык
-        const lastUpdated = new Date(2025, 11, 25); // Dec 25, 2025
+        // Обновляем дату
+        const lastUpdated = new Date(2025, 11, 25); // 25 декабря 2025
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         document.getElementById('last-updated').textContent = lastUpdated.toLocaleDateString(lang, options);
 
-        // Сохраняем
         localStorage.setItem('lang', lang);
         document.documentElement.lang = lang;
       }
@@ -504,15 +497,40 @@
       document.getElementById('lang-ru')?.addEventListener('click', () => setLanguage('ru'));
       document.getElementById('lang-en')?.addEventListener('click', () => setLanguage('en'));
 
-      document.addEventListener("DOMContentLoaded", function () {
-        const savedLang = localStorage.getItem('lang') || 'ru';
-        setLanguage(savedLang);
-        document.body.classList.add("loaded");
-      });
-    </script>
+      // === Модальное окно фото ===
+      const profilePhoto = document.getElementById('profilePhoto');
+      const modal = document.getElementById('photoModal');
+      const modalImg = document.getElementById('modalImage');
+      const closeModalBtn = document.getElementById('closeModal');
 
-    <!-- Анимация фона -->
-    <script>
+      if (profilePhoto && modal && modalImg && closeModalBtn) {
+        profilePhoto.addEventListener('click', () => {
+          modalImg.src = profilePhoto.src;
+          modal.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+          modal.style.display = 'none';
+          document.body.style.overflow = '';
+        });
+
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+          }
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && modal.style.display === 'flex') {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+          }
+        });
+      }
+
+      // === Canvas анимация ===
       const canvas = document.getElementById("bgCanvas");
       const ctx = canvas.getContext("2d");
       let width, height;
@@ -528,16 +546,16 @@
       resizeCanvas();
 
       const particles = [];
-      const particleCount = 50;
+      const particleCount = 60;
 
       for (let i = 0; i < particleCount; i++) {
         particles.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          radius: Math.random() * 3 + 2,
-          vx: (Math.random() - 0.5) * 2,
-          vy: (Math.random() - 0.5) * 2,
-          color: "rgba(74, 222, 128, 0.05)",
+          radius: Math.random() * 2 + 1,
+          vx: (Math.random() - 0.5) * 1.2,
+          vy: (Math.random() - 0.5) * 1.2,
+          color: "rgba(74, 222, 128, 0.08)",
         });
       }
 
@@ -557,6 +575,13 @@
       }
 
       drawParticles();
+
+      // === Загрузка ===
+      document.addEventListener("DOMContentLoaded", function () {
+        const savedLang = localStorage.getItem('lang') || 'ru';
+        setLanguage(savedLang);
+        document.body.classList.add("loaded");
+      });
     </script>
   </body>
 </html>

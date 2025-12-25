@@ -76,7 +76,7 @@
       .i18n-text[data-lang="en"] {
         display: none; /* Скрываем английский */
       }
-      /* Стили для кнопок языка */
+      /* Язык */
       .lang-button {
         padding: 0.5rem 1rem;
         border-radius: 0.375rem;
@@ -84,23 +84,18 @@
         font-size: 1rem;
         cursor: pointer;
         transition: all 0.2s ease;
-      }
-      .lang-button:not(.active) {
-        background-color: transparent;
-        color: #94a3b8; /* Серый цвет для неактивной кнопки */
+        border: none;
+        background: transparent;
+        color: #94a3b8;
       }
       .lang-button.active {
-        background-color: #f1f5f9; /* Белый фон для активной кнопки */
-        color: #1e293b; /* Темно-серый текст для активной кнопки */
+        background-color: #1e293b;
+        color: #f1f5f9;
+        border: 1px solid #334155;
       }
       .lang-button:hover:not(.active) {
-        background-color: #334155; /* Темный серый при наведении */
-        color: #f1f5f9; /* Белый текст при наведении */
-      }
-      .lang-selector-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
+        background-color: #334155;
+        color: #f1f5f9;
       }
       /* Стили для карточки контакта */
       .contact-card {
