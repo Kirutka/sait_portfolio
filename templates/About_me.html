@@ -121,7 +121,7 @@
         border-color: #10b981;
       }
 
-      /* Стили для фото */
+      /* Фото */
       .profile-photo {
         width: 150px;
         height: 150px;
@@ -133,7 +133,7 @@
         background-color: #334155;
       }
 
-      /* Стили для списка */
+      /* Список */
       .about-list {
         list-style: none;
         padding-left: 0;
@@ -154,7 +154,7 @@
         line-height: 1;
       }
 
-      /* Мета-информация (дата, локация) */
+      /* Мета */
       .meta-info {
         display: flex;
         flex-wrap: wrap;
@@ -238,14 +238,19 @@
       <div class="profile-card max-w-3xl mx-auto">
         <!-- Фото -->
         <img
-          src="static/image/GeneralPhoto.png"
+          src="/static/image/GeneralPhoto.png"
           alt="Kirill Zaporozhets"
           class="profile-photo"
-          onerror="this.src='static/image/GeneralPhoto.png';"
+          onerror="this.src='/static/image/GeneralPhoto.png';"
         />
 
-        <!-- Имя -->
-        <h2 class="text-2xl font-bold text-center mb-2">Кирилл Запорожец</h2>
+        <!-- Имя — С ПОДДЕРЖКОЙ i18n -->
+        <h2 class="text-2xl font-bold text-center mb-2">
+          <span class="i18n-container" data-i18n="name">
+            <span class="i18n-text" data-lang="ru">Кирилл Запорожец</span>
+            <span class="i18n-text" data-lang="en">Kirill Zaporozhets</span>
+          </span>
+        </h2>
 
         <!-- Местоположение -->
         <div class="flex justify-center items-center gap-2 text-gray-400 mb-4">
@@ -319,7 +324,7 @@
           </p>
         </div>
 
-        <!-- Мета: дата обновления -->
+        <!-- Дата обновления -->
         <div class="meta-info">
           <div class="meta-item">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -414,13 +419,13 @@
     </footer>
 
     <script>
-      // === Переводы ===
       const translations = {
         ru: {
           home: "Главная",
           projects: "Мои проекты",
           about: "Обо мне",
           contacts: "Контакты",
+          name: "Кирилл Запорожец",
           location: "Москва, Россия",
           status: "Студент 4 курса, backend-разработчик",
           intro: "Привет! Я — Кирилл, студент вуза СГУВ, специализируюсь в области информационных систем и технологий. С 2023 года занимаюсь backend-разработкой, пишу на Go (Golang), использую PostgreSQL, Docker, Git и другие современные инструменты. В данный момент работаю над дипломным проектом — совместным редактором кода.",
@@ -439,6 +444,7 @@
           projects: "Projects",
           about: "About Me",
           contacts: "Contacts",
+          name: "Kirill Zaporozhets",
           location: "Moscow, Russia",
           status: "4th-year student, backend developer",
           intro: "Hi! I'm Kirill, a 4th-year student at SGUV, majoring in Information Systems and Technologies. Since 2023, I've been working on backend development with Go (Golang), PostgreSQL, Docker, Git, and other modern tools. Currently, I'm developing my thesis project — a real-time collaborative code editor.",
@@ -458,11 +464,15 @@
         const t = translations[lang];
         if (!t) return;
 
+        // Обновляем все элементы с data-i18n
         document.querySelectorAll('[data-i18n]').forEach(container => {
           const key = container.getAttribute('data-i18n');
+          if (t[key] === undefined) return; // skip unknown keys
+
           const ruSpan = container.querySelector('.i18n-text[data-lang="ru"]');
           const enSpan = container.querySelector('.i18n-text[data-lang="en"]');
-          if (ruSpan && enSpan && t[key] !== undefined) {
+
+          if (ruSpan && enSpan) {
             if (lang === 'ru') {
               ruSpan.style.display = 'inline';
               enSpan.style.display = 'none';
@@ -473,6 +483,7 @@
           }
         });
 
+        // Кнопки
         const ruButton = document.getElementById('lang-ru');
         const enButton = document.getElementById('lang-en');
         if (ruButton && enButton) {
@@ -480,26 +491,18 @@
           enButton.classList.toggle('active', lang === 'en');
         }
 
+        // Дата — обновляем формат под язык
+        const lastUpdated = new Date(2025, 11, 25); // Dec 25, 2025
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('last-updated').textContent = lastUpdated.toLocaleDateString(lang, options);
+
+        // Сохраняем
         localStorage.setItem('lang', lang);
         document.documentElement.lang = lang;
       }
 
       document.getElementById('lang-ru')?.addEventListener('click', () => setLanguage('ru'));
       document.getElementById('lang-en')?.addEventListener('click', () => setLanguage('en'));
-
-      // Форматирование даты обновления
-      function formatDate(date) {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return date.toLocaleDateString(document.documentElement.lang || 'ru', options);
-      }
-
-      // Можно задать дату вручную:
-      const lastUpdated = new Date(2025, 11, 25); // Декабрь 25, 2025 (месяцы с 0!)
-      document.getElementById('last-updated').textContent = formatDate(lastUpdated);
-
-      // Или использовать document.lastModified (если нужна реальная дата правки HTML):
-      // const lastModified = new Date(document.lastModified);
-      // document.getElementById('last-updated').textContent = formatDate(lastModified);
 
       document.addEventListener("DOMContentLoaded", function () {
         const savedLang = localStorage.getItem('lang') || 'ru';
